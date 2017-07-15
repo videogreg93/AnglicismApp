@@ -1,0 +1,38 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.anglicisme.gregoryfournier.anglicismes.Fragments.ViewWordFragment">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:orientation="vertical"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:paddingBottom="35dp"
+            >
+
+            <TextView
+                android:id="@+id/wordview_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Word"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+            <TextView
+                android:text="This is a definition"
+                android:id="@+id/wordview_definition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</FrameLayout>
