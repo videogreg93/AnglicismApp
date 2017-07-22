@@ -26,7 +26,10 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.function.Consumer;
 
 /**
@@ -100,6 +103,17 @@ public class AllWordsFragment extends Fragment {
             }
         });
 
+        Collections.sort(words, new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                o1 = Normalizer.normalize(o1, Normalizer.Form.NFD);
+                o2 = Normalizer.normalize(o2, Normalizer.Form.NFD);
+                o1 = o1.replace(" ", "");
+                o2 = o2.replace(" ","");
+                return o1.compareTo(o2);
+            }
+        });
+
         listview.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, words));
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -116,7 +130,7 @@ public class AllWordsFragment extends Fragment {
         String json = null;
         try {
 
-            InputStream is = getActivity().getAssets().open("sampleData.json");
+            InputStream is = getActivity().getAssets().open("data2.json");
 
             int size = is.available();
 

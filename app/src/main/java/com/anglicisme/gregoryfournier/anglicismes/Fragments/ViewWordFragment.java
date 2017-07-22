@@ -4,6 +4,8 @@ package com.anglicisme.gregoryfournier.anglicismes.Fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,7 +54,8 @@ public class ViewWordFragment extends Fragment {
 
         // Update the views to correct values
         title.setText(currentWord);
-        definition.setText(DataHolder.getDefinition(currentWord));
+        Spanned sp = Html.fromHtml(DataHolder.getDefinition(currentWord));
+        definition.setText(sp);
 
     }
 }

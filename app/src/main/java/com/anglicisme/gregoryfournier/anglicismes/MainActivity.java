@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 
+import com.anglicisme.gregoryfournier.anglicismes.Fragments.AboutFragment;
 import com.anglicisme.gregoryfournier.anglicismes.Fragments.AllWordsFragment;
 import com.anglicisme.gregoryfournier.anglicismes.Fragments.ViewWordFragment;
 
@@ -81,6 +82,15 @@ public class MainActivity extends AppCompatActivity
         transaction.commit();
     }
 
+    public void goToAboutFragment() {
+        Fragment fragment = new AboutFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, fragment);
+        transaction.addToBackStack(null);
+        // Commit the transaction
+        transaction.commit();
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -108,6 +118,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            goToAboutFragment();
             return true;
         }
 
