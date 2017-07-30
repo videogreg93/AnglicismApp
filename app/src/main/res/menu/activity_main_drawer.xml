@@ -6,6 +6,10 @@
             android:id="@+id/nav_mots"
             android:icon="?android:attr/actionModeFindDrawable"
             android:title="Mots" />
+        <item
+            android:id="@+id/nav_favorites"
+            android:icon="@android:drawable/btn_star_big_on"
+            android:title="Favoris" />
     </group>
 
     <item android:title="Communication">

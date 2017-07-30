@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 
+import com.anglicisme.gregoryfournier.anglicismes.Data.DataHolder;
 import com.anglicisme.gregoryfournier.anglicismes.Fragments.AboutFragment;
 import com.anglicisme.gregoryfournier.anglicismes.Fragments.AllWordsFragment;
 import com.anglicisme.gregoryfournier.anglicismes.Fragments.ViewWordFragment;
@@ -38,10 +39,11 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setupDrawerAndToolbar();
+        DataHolder.loadFavoriteWords(getApplicationContext());
 
 
         // Load correct Fragment
-        loadWordsFragment();
+        loadWordsFragment(false);
 
 
     }
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity
     private void setupDrawerAndToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setTitle("Dictionnaire Des Anglicismes");
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -61,14 +64,16 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    private void loadWordsFragment() {
-        Fragment fragment = new AllWordsFragment(this);
+    private void loadWordsFragment(boolean loadFavorites) {
+        AllWordsFragment fragment = new AllWordsFragment();
+        fragment.init(this, loadFavorites);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, fragment);
         transaction.addToBackStack(null);
         // Commit the transaction
         transaction.commit();
     }
+
 
     public void goToViewWordFragment(String word) {
         Bundle args = new Bundle();
@@ -132,11 +137,16 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_mots) {
-            loadWordsFragment();
+            loadWordsFragment(false);
+        }
+        if (id == R.id.nav_favorites) {
+            loadWordsFragment(true);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }

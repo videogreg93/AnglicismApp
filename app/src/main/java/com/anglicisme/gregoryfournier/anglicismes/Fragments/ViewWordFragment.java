@@ -9,7 +9,9 @@ import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.anglicisme.gregoryfournier.anglicismes.Data.DataHolder;
 import com.anglicisme.gregoryfournier.anglicismes.R;
@@ -23,6 +25,7 @@ public class ViewWordFragment extends Fragment {
     // The Views
     TextView title;
     TextView definition;
+    ToggleButton favoriteButton;
 
 
     public ViewWordFragment() {
@@ -51,11 +54,29 @@ public class ViewWordFragment extends Fragment {
         // Get the views
         title = (TextView) getActivity().findViewById(R.id.wordview_title);
         definition = (TextView) getActivity().findViewById(R.id.wordview_definition);
+        favoriteButton = (ToggleButton) getActivity().findViewById(R.id.favorite_button);
 
         // Update the views to correct values
         title.setText(currentWord);
         Spanned sp = Html.fromHtml(DataHolder.getDefinition(currentWord));
         definition.setText(sp);
+
+        if (DataHolder.getFavoriteWords().contains(currentWord)) {
+            favoriteButton.setChecked(true);
+        } else {
+            favoriteButton.setChecked(false);
+        }
+
+        favoriteButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    DataHolder.addNewFavoriteWord(currentWord);
+                } else {
+                    DataHolder.removeFavoriteWord(currentWord);
+                }
+            }
+        });
 
     }
 }

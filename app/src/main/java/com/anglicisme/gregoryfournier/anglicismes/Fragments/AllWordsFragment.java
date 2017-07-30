@@ -30,6 +30,7 @@ import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.function.Consumer;
 
 /**
@@ -40,6 +41,7 @@ public class AllWordsFragment extends Fragment {
     AutoCompleteTextView autoCompleteTextView;
     ArrayList<String> words;
     MainActivity mainActivity;
+    Boolean isFavorites = false;
 
 
 
@@ -47,8 +49,9 @@ public class AllWordsFragment extends Fragment {
 
     }
 
-    public AllWordsFragment(MainActivity m) {
+    public void init(MainActivity m, boolean loadFavorites) {
         mainActivity = m;
+        isFavorites = loadFavorites;
     }
 
 
@@ -95,24 +98,34 @@ public class AllWordsFragment extends Fragment {
         // Get words from Json Data
         words = new ArrayList<>();
 
-        DataHolder.wordsJson.keys().forEachRemaining(new Consumer<String>() {
+        /*DataHolder.wordsJson.keys().forEachRemaining(new Consumer<String>() {
             @Override
             public void accept(String s) {
                 words.add(s);
                 Log.d("JSON", "Added " + s);
             }
-        });
-
-        Collections.sort(words, new Comparator<String>() {
-            @Override
-            public int compare(String o1, String o2) {
-                o1 = Normalizer.normalize(o1, Normalizer.Form.NFD);
-                o2 = Normalizer.normalize(o2, Normalizer.Form.NFD);
-                o1 = o1.replace(" ", "");
-                o2 = o2.replace(" ","");
-                return o1.compareTo(o2);
+        });*/
+        if (isFavorites) {
+            words = DataHolder.getFavoriteWords();
+        } else {
+            Iterator<String> iterator = DataHolder.wordsJson.keys();
+            while(iterator.hasNext()) {
+                words.add(iterator.next());
             }
-        });
+
+            Collections.sort(words, new Comparator<String>() {
+                @Override
+                public int compare(String o1, String o2) {
+                    o1 = Normalizer.normalize(o1, Normalizer.Form.NFD);
+                    o2 = Normalizer.normalize(o2, Normalizer.Form.NFD);
+                    o1 = o1.replace(" ", "");
+                    o2 = o2.replace(" ","");
+                    return o1.compareTo(o2);
+                }
+            });
+        }
+
+
 
         listview.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, words));
 
