@@ -37,12 +37,4 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <TextView
-        android:layout_marginTop="25dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:text="Merci à Consuelo pour l'idée et à Audrey pour son soutient linguistique hors du commun. "
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
 </LinearLayout>

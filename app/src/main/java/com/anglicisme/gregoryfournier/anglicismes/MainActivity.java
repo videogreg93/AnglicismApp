@@ -50,8 +50,9 @@ public class MainActivity extends AppCompatActivity
 
     private void setupDrawerAndToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Dictionnaire des anglicismes");
         setSupportActionBar(toolbar);
-        toolbar.setTitle("Dictionnaire Des Anglicismes");
+
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
